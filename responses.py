@@ -32,7 +32,7 @@ responses = list(filter(is_valid_response, responses[1:]))
 
 print (len(responses))
 
-num_questions=[]
+num_questions = []
 
 for i, q in enumerate(questions):
 
@@ -53,8 +53,18 @@ for i, q in enumerate(questions):
 
     num_questions.append(totals)
 
+def get_total(totals, response):
+    return [total[response] for total in totals]
+
+with open('totals.csv', 'wb') as csv_file:
+    writer = csv.writer(csv_file)
+
+    writer.writerow(['Response'] + questions)
+
+    writer.writerow(['Strongly Agree'] + get_total(num_questions, 'Strongly Agree'))
+    writer.writerow(['Agree'] + get_total(num_questions, 'Agree'))
+    writer.writerow(['Neutral'] + get_total(num_questions, 'Neutral'))
+    writer.writerow(['Disagree'] + get_total(num_questions, 'Disagree'))
+    writer.writerow(['Strongly Disagree'] + get_total(num_questions, 'Strongly Disagree'))
+
 print(num_questions)
-
-
-
-
